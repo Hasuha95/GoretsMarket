@@ -8,13 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(value = "/market")
+@RequestMapping(value = "")
 public class MainController {
-
 
     /**
      * Main block
      */
+    @GetMapping(value = "")
+    public String mainPage(){
+        return "mainHTML/main_page.html";
+    }
+
+    @GetMapping(value = "/products")
+    public String productsPage(){
+        return "mainHTML/products_page.html";
+    }
+
 
 
     /**
