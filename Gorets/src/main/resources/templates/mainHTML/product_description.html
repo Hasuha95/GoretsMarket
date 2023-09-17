@@ -1,0 +1,103 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GORETS</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<style>
+  body {
+  background: url("https://img3.akspic.ru/crops/2/4/7/5/6/165742/165742-gora_fudzi_chernyj_ili_belyj-gora_fudzi-oisi-pyati_ozer_fudzi-vulkan-1920x1080.jpg");
+  background-attachment: fixed;
+  }
+</style>
+
+<!--NAVBAR-->
+<nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
+    <div class="container">
+        <a class="navbar-brand " href="#">
+            <svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg>
+            GORETS
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="#offcanvas" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="#offcanvas" aria-labelledby="#offcanvasLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="#offcanvasLabel">Aperture</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav flex-grow-1 justify-content-between">
+                    <li class="nav-item"><a class="nav-link" href="#">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg>
+                    </a></li>
+                    <li class="nav-item"><a class="nav-link" href="/market">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/market/products">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Enterprise</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Administration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#cart"></use></svg>
+                    </a></li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="width: 35rem;">
+    <img class="img-fluid" src="https://psv4.userapi.com/c909518/u418489707/docs/d39/b101f0a4de72/IMG_1392.jpg?extra=y7eD3f2t3Dt3TMBgXYIWui-uJzbmJGqj9GjKdg_Q4Mzrxp0gQRZBV25h3GE3NkxZrlWkwvzw8T0P8_wiKaduAZRdDbk8HM3Js4lxOXp3k2-MBJsjmRnki1eHXtQ8kkc6p76PSFLKggmsCsyJjOfpiWY"
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-5" style="color: #fff">
+
+        </div>
+        <div class="col-lg-5" style="color: #fff">
+            <p class="card-text">Небольшой пример текста,
+                который должен основываться на названии карточки и составлять
+                основную часть содержимого карточки.</p>
+        </div>
+
+    </div>
+</div>
+
+
+<!--<div class="row">-->
+<!--    <div class="col-lg-7" style="color: #fff">-->
+<!--        <p class="card-text">Небольшой пример текста,-->
+<!--            который должен основываться на названии карточки и составлять-->
+<!--            основную часть содержимого карточки.-->
+<!--            Небольшой пример текста,-->
+<!--            который должен основываться на названии карточки и составлять-->
+<!--            основную часть содержимого карточки-->
+<!--            Небольшой пример текста,-->
+<!--            который должен основываться на названии карточки и составлять-->
+<!--            основную часть содержимого карточки-->
+<!--            Небольшой пример текста,-->
+<!--            который должен основываться на названии карточки и составлять-->
+<!--            основную часть содержимого карточки-->
+<!--            Небольшой пример текста,-->
+<!--            который должен основываться на названии карточки и составлять-->
+<!--            основную часть содержимого карточки</p>-->
+<!--    </div>-->
+<!--    <div class="col-lg-5" style="color: #fff">-->
+<!--        <p class="card-text">Небольшой пример текста,-->
+<!--            который должен основываться на названии карточки и составлять-->
+<!--            основную часть содержимого карточки.</p>-->
+<!--    </div>-->
+<!--</div>-->
