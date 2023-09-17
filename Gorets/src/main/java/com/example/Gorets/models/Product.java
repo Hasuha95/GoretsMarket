@@ -20,11 +20,7 @@ public class Product {
     @Column(name = "title")
     private String title;
 
-    public Product(int cost, String title) {
-        this.cost = cost;
-        this.title = title;
-    }
+    @Column(name = "description")
+    private String description;
 
-    public Product() {
-    }
 }

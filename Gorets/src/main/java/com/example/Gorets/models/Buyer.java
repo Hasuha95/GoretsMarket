@@ -21,10 +21,4 @@ public class Buyer {
     @JoinTable(name = "buyers_products")
     private List<Product> products = new ArrayList<>();
 
-    public Buyer(String name) {
-        this.name = name;
-    }
-
-    public Buyer() {
-    }
 }
