@@ -25,6 +25,12 @@ public class MainController {
     }
 
 
+    @GetMapping(value = "/products")
+    public String productDescription(){
+        return "mainHTML/product_description.html";
+    }
+
+
 
     /**
      * Block of autentication
