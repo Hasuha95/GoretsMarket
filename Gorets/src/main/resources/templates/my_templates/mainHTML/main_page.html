@@ -19,7 +19,13 @@
   }
 </style>
 
-<!--NAVBAR-->
+<script>
+function showAlert(){
+    alert("Hello");
+}
+</script>
+
+                                       <!--NAVBAR-->
 <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand " href="#">
@@ -40,11 +46,11 @@
                         <svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg>
                     </a></li>
                     <li class="nav-item"><a class="nav-link" href="/market">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/market/products">Products</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Enterprise</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Administration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/market/prod">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="temporarilyNotWorking()">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="temporarilyNotWorking()">Enterprise</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="temporarilyNotWorking()">Support</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/market/administration">Administration</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">
                         <svg class="bi" width="24" height="24"><use xlink:href="#cart"></use></svg>
                     </a></li>
@@ -57,6 +63,22 @@
         </div>
     </div>
 </nav>
+
+
+
+                                       <!--Content-->
+
+        <!--scripts-->
+
+<!--Temporarily Not Working-->
+<script>
+    function temporarilyNotWorking(){
+        alert("temporarily not working");
+    }
+</script>
+
+        <!--scripts-->
+
 
 
 <div class="row">
@@ -219,7 +241,7 @@
 
 
 
-<!-- FOOTER-->
+                                        <!-- FOOTER-->
 <div class="container-fluid" style="background-color: #343a40">
     <footer class="bd-footer py-4 py-md-5 mt-5 " >
         <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary" >

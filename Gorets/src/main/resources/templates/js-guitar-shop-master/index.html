@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Guitar Shop</title>
+	<link rel="icon" type="image/png" href="/src/main/resources/templates/js-guitar-shop-master/img/favicon.png">
+	<link rel="stylesheet" href="/src/main/resources/templates/js-guitar-shop-master/css/index.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+		  rel="stylesheet"
+		  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+		  crossorigin="anonymous">
+</head>
+<body>
+
+<style>
+  body {
+  background: url("/src/main/resources/templates/my_templates/my_img/bg_4.jpeg");
+  background-attachment: fixed;
+  }
+</style>
+
+<nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
+	<div class="container">
+		<a class="navbar-brand " href="#">
+			<svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg>
+			GORETS
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="#offcanvas" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="offcanvas offcanvas-end" tabindex="-1" id="#offcanvas" aria-labelledby="#offcanvasLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="#offcanvasLabel">Aperture</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<ul class="navbar-nav flex-grow-1 justify-content-between">
+					<li class="nav-item"><a class="nav-link" href="#">
+						<svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="/market">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/market/products">Products</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Enterprise</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Support</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Administration</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">
+						<svg class="bi" width="24" height="24"><use xlink:href="#cart"></use></svg>
+					</a></li>
+				</ul>
+				<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+					<button class="btn btn-outline-success" type="submit">Поиск</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</nav>
+
+	<div id="header"></div>
+	<div id="products"></div>
+	<div id="shopping"></div>
+	<div id="spinner"></div>
+	<div id="error"></div>
+
+	<!-- Constants and Utils -->
+	<script src="/src/main/resources/templates/js-guitar-shop-master/constants/root.js"></script>
+	<script src="/src/main/resources/templates/js-guitar-shop-master/utils/localStorageUtil.js"></script>
+
+	<!-- Header -->
+	<script src="/src/main/resources/templates/js-guitar-shop-master/components/Header/Header.js"></script>
+	<link rel="stylesheet" href="/src/main/resources/templates/js-guitar-shop-master/components/Header/Header.css">
+
+	<!-- Products -->
+	<script src="/src/main/resources/templates/js-guitar-shop-master/components/Products/Products.js"></script>
+	<link rel="stylesheet" href="/src/main/resources/templates/js-guitar-shop-master/components/Products/Products.css">
+
+	<!-- Shopping -->
+	<script src="/src/main/resources/templates/js-guitar-shop-master/components/Shopping/Shopping.js"></script>
+	<link rel="stylesheet" href="/src/main/resources/templates/js-guitar-shop-master/components/Shopping/Shopping.css">
+
+    <!-- Spinner -->
+    <script src="/src/main/resources/templates/js-guitar-shop-master/components/Spinner/Spinner.js"></script>
+    <link rel="stylesheet" href="/src/main/resources/templates/js-guitar-shop-master/components/Spinner/Spinner.css">
+
+    <!-- Error -->
+    <script src="/src/main/resources/templates/js-guitar-shop-master/components/Error/Error.js"></script>
+    <link rel="stylesheet" href="/src/main/resources/templates/js-guitar-shop-master/components/Error/Error.css">
+
+	<script src="/src/main/resources/templates/js-guitar-shop-master/index.js"></script>
+
+</body>
+</html>
