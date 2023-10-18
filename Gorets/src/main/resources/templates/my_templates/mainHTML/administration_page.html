@@ -83,16 +83,41 @@
     }
 </script>
 
+<!--class Product-->
+<script>
+    class Product{
+        constructor(name, price, src){
+            this.name = name;
+            this.price = price;
+            this.src = src;
+        }
+    }
+</script>
+
 <!--Send Form To Server-->
 <script>
-    function sendFormToServer(el){
-        var NAME = el.title.value;
-        var PRICE = el.price.value;
-        var SRC = el.link.value;
+    function sendFormToServer(){
+        const el = document.getElementById("mainForm");
+        const url = 'http://localhost:8080/market/api/v1/test';
+        const NAME = el.title.value;
+        const PRICE = el.price.value;
+        const SRC = el.link.value;
 
-        console.log(NAME + " - " + PRICE + " - " + SRC);
+        var newProduct = new Product(NAME, PRICE, SRC);
+        var data = JSON.stringify(newProduct);
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(data);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("OK");
+            }
+        };
         return false;
     }
+
 </script>
         <!--scripts-->
 
@@ -128,7 +153,11 @@
 
 <div class="container" style="color: #f8f9fa">
     <h3 >Add new product</h3>
-    <form id="mainForm" onsubmit="return sendFormToServer(this)" method="post">
+    <form id="mainForm" >
+<!--        <div class="mb-3">-->
+<!--            <label for="exampleInputId" class="form-label">Link to photo</label>-->
+<!--            <input placeholder="ID" name="id" class="form-control" id="exampleInputId">-->
+<!--        </div>-->
         <div class="mb-3">
             <label for="exampleInputPrice" class="form-label">Title</label>
             <input placeholder="Title" name="title" class="form-control" id="exampleInputTitle">

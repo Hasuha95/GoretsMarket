@@ -17,8 +17,10 @@ public class ProductService {
         return (List<Product>) repository.findAll();
     }
 
-    public void addNewProduct(Product product){
-        repository.save(product);
+    public Product addNewProduct(Product product){
+        return repository.save(product);
     }
+
+
 
 }

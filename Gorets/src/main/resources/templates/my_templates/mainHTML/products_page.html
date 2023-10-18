@@ -232,6 +232,8 @@ body {
     <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
   </div>
 
+  <div id="products"></div>
+
 </main>
 
         <!--scripts-->
@@ -243,23 +245,22 @@ const ROOT_PRODUCTS = document.getElementById('products');
 
 <!--Product.js-->
 <script>
-  fetch('http://localhost:8080/market/api/v1/test/getProducts')
+  fetch('http://localhost:8080/market/api/v1/test')
     .then(function (response) {
       response.json().then(function (data) {
-        console.log('data', data);
         var PRODUCTS = data;
         console.log('PRODUCTS', PRODUCTS)
         createCards(PRODUCTS);
       })
     })
 
-function createCards(product){
+  function createCards(product){
         let htmlCatalog = '';
         for (var i = 0; i < product.length; i++) {
           htmlCatalog += `
                 <li class="products-element">
                     <span class="products-element__name">${product[i].name}</span>
-                    <img class="products-element__img" src="${product[i].img}" />
+                    <img class="products-element__img" src="${product[i].src}" />
                     <span class="products-element__price">
                         ⚡️ ${product[i].price.toLocaleString()} USD
                     </span>

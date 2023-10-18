@@ -42,7 +42,7 @@ public class MainController {
 
     @GetMapping(value = "/administration")
     public String administrationPage(){
-        return "mainHTML/administration_page.html";
+        return "my_templates/mainHTML/administration_page.html";
     }
 
 }
