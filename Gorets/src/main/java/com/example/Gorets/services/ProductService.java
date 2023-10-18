@@ -14,6 +14,7 @@ public class ProductService {
     private ProductRepository repository;
 
     public List<Product> getAllProducts(){
+        long one = 1;
         return (List<Product>) repository.findAll();
     }
 

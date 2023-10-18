@@ -1,24 +1,23 @@
 package com.example.Gorets.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "buyers")
-public class Buyer {
+@Table(name = "Cart")
+public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
+
     @Column
     private String name;
 
     @OneToMany
-    @JoinTable(name = "buyers_products")
-    private List<Product> products = new ArrayList<>();
-
+    @JoinTable(name = "cart_products")
+    private List<Product> products;
 }

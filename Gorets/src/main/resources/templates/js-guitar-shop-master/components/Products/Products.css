@@ -30,6 +30,7 @@
 	margin-top: var(--spacing-medium);
 	color: var(--color-unaccent);
 }
+
 .products-element__btn {
 	margin-top: var(--spacing-medium);
 	padding: var(--spacing-small) var(--spacing-medium);

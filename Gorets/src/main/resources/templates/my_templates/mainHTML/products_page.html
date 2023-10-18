@@ -243,9 +243,9 @@ body {
 const ROOT_PRODUCTS = document.getElementById('products');
 </script>
 
-<!--Product.js-->
+<!--index.js-->
 <script>
-  fetch('http://localhost:8080/market/api/v1/test')
+    fetch('http://localhost:8080/market/api/v1/test')
     .then(function (response) {
       response.json().then(function (data) {
         var PRODUCTS = data;
@@ -254,9 +254,67 @@ const ROOT_PRODUCTS = document.getElementById('products');
       })
     })
 
+    function indexOf(list, ){
+
+    }
+</script>
+
+<!--addToCard-->
+<script>
+<!--  function addToCard(pushProduct){-->
+<!--        var data = JSON.stringify(pushProduct);-->
+<!--        const url = 'http://localhost:8080/market/api/v1/cart';-->
+<!--        let xhr = new XMLHttpRequest();-->
+<!--        xhr.open("POST", url);-->
+<!--        xhr.setRequestHeader("Content-type", "application/json");-->
+<!--        xhr.send(data);-->
+<!--        xhr.onreadystatechange = function () {-->
+<!--            if (xhr.readyState === 4 && xhr.status === 200) {-->
+<!--                console.log("OK");-->
+<!--            }-->
+<!--        };-->
+<!--        return false;-->
+<!--  }-->
+</script>
+
+<!--Storage.js-->
+<script>
+  class ProductsStore{
+    getCardProducts(){
+      var CARD_PRODUCTS = [];
+      fetch('http://localhost:8080/market/api/v1/cart')
+      .then(function (response) {
+        response.json().then(function (data) {
+          CARD_PRODUCTS = data;
+          console.log('CARD_PRODUCTS: ', CARD_PRODUCTS)
+        })
+      });
+      return CARD_PRODUCTS;
+    }
+
+    addToCard(productToCard){
+    }
+  }
+</script>
+
+<!--Product.js-->
+<script>
   function createCards(product){
         let htmlCatalog = '';
+        var productsStore = new ProductsStore();
+        let cardProducts = productsStore.getCardProducts();
+
         for (var i = 0; i < product.length; i++) {
+            let activeClass = '';
+            let activeText = '';
+
+            if (cardProducts.indexOf(product[i].id) === -1) {
+                activeText = this.labelAdd;
+            } else {
+                activeClass = ' ' + this.classNameActive;
+                activeText = this.labelRemove;
+            }
+
           htmlCatalog += `
                 <li class="products-element">
                     <span class="products-element__name">${product[i].name}</span>
@@ -264,7 +322,7 @@ const ROOT_PRODUCTS = document.getElementById('products');
                     <span class="products-element__price">
                         ⚡️ ${product[i].price.toLocaleString()} USD
                     </span>
-                    <button>Добавить в карзину</button>
+                    <button class="products-element__btn">Добавить в карзину</button>
                 </li>
             `;
             }
@@ -275,7 +333,7 @@ const ROOT_PRODUCTS = document.getElementById('products');
         `;
 
         ROOT_PRODUCTS.innerHTML =  html;
-      }
+  }
 
 </script>
 
