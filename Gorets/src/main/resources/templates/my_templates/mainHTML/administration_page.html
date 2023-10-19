@@ -75,6 +75,55 @@
         <!--scripts-->
 <!--проверка логина и пароля-->
 
+<!--index.js-->
+<script>
+    fetch('http://localhost:8080/market/api/v1/test')
+    .then(function (response) {
+      response.json().then(function (data) {
+        var PRODUCTS = data;
+        console.log('PRODUCTS', PRODUCTS)
+        createTable(PRODUCTS);
+      })
+    })
+</script>
+
+<!--createTable-->
+<script>
+    function createTable(product){
+        let htmlCatalog = '';
+
+        for (var i = 0; i < product.length; i++) {
+          htmlCatalog += `
+                  <tr>
+                    <td>${product[i].id}</td>
+                    <td>${product[i].name}</td>
+                    <td>${product[i].price}</td>
+                    <td>${product[i].src}</td>
+                    <td><button class="btn btn-danger" onclick="confirmAction(${product[i].id})">Delete</button>
+                    <button type="button" class="btn btn-success">Edit</button></td>
+                  </tr>
+            `;
+            }
+            const html = `
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th>id</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Img Source</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+                ${htmlCatalog}
+              </tbody>
+            </table>
+        `;
+
+        document.getElementById("div").innerHTML =  html;
+    }
+</script>
 
 <!--Temporarily Not Working-->
 <script>
@@ -116,8 +165,33 @@
             }
         };
         return false;
+        location.reload();
     }
+</script>
 
+<!--delete Product By Id-->
+<script>
+       function confirmAction(id){
+          var confirmBtn = confirm("Are you sure? Deleted product cannot be restored");
+            if(confirmBtn){
+                deleteProductById(id);
+            }
+       }
+
+    function deleteProductById(id){
+        const url = 'http://localhost:8080/market/api/v1/test/' + id;
+        console.log("INFO: line128 - " + url);
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("DELETE", url);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("OK");
+            }
+        };
+        location.reload();
+    }
 </script>
         <!--scripts-->
 
@@ -171,6 +245,16 @@
     </form>
 </div>
 
+<div class="container" style="color: #f8f9fa">
+    <p>         </p>
+</div>
+
+
+<div class="container" style="color: #f8f9fa">
+    <h3>Table of Products</h3>
+</div>
+
+<div id="div" class="container"></div>
 
 
 

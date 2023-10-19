@@ -15,7 +15,16 @@
 <body>
 
 
-<script src="test/test.js"></script>
+<script>
+      function confirmAction(id){
+        var confirmBtn = confirm("Are you sure? Deleted product cannot be restored");
+        if(confirmBtn){
+            console.log("OK")
+        }
+      }
+</script>
+
+<button class="btn btn-danger" onclick="confirmAction(1)">Delete</button>
 
 
 <!--<script src="/src/main/resources/templates/js/catalog/test.js"></script>-->

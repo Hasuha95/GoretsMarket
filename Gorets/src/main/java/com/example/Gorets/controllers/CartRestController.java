@@ -18,7 +18,6 @@ public class CartRestController {
 
     @GetMapping
     public List<Product> getListOfProductsFromCardWithIdOne(){
-
         long one = 1;
         return cartRepoService.getProductsFromCartWithIdOne(one);
     }
@@ -28,4 +27,5 @@ public class CartRestController {
     public boolean addNewProductInCardWithIdOne(@RequestBody Product newProduct){
         return cartRepoService.addNewProductInCardWithIdOne(newProduct);
     }
+
 }

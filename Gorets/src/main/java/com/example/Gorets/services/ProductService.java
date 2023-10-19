@@ -22,6 +22,24 @@ public class ProductService {
         return repository.save(product);
     }
 
+    public String deleteProductById(long id){
+        repository.deleteById(id);
+        return "OK";
+    }
+
+    public String deleteProduct(Product product){
+        repository.delete(product);
+        return "OK";
+    }
+
+    public String deleteAllProducts(){
+        repository.deleteAll();
+        return "OK";
+    }
+
+    public List<Product> findProductByName(String name){
+        return repository.findByName(name);
+    }
 
 
 }
