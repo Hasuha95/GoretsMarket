@@ -99,12 +99,15 @@
                     <td>${product[i].name}</td>
                     <td>${product[i].price}</td>
                     <td>${product[i].src}</td>
-                    <td><button class="btn btn-danger" onclick="confirmAction(${product[i].id})">Delete</button>
-                    <button type="button" class="btn btn-success">Edit</button></td>
+                    <td>
+                    <button class="btn btn-danger" onclick="confirmAction(${product[i].id})">Delete</button>
+                    <button type="button" class="btn btn-success">Edit</button>
+                    </td>
                   </tr>
             `;
             }
             const html = `
+            <div class="container">
             <table class="table table-hover">
               <thead>
               <tr>
@@ -119,6 +122,7 @@
                 ${htmlCatalog}
               </tbody>
             </table>
+            </div>
         `;
 
         document.getElementById("div").innerHTML =  html;
@@ -148,6 +152,7 @@
     function sendFormToServer(){
         const el = document.getElementById("mainForm");
         const url = 'http://localhost:8080/market/api/v1/test';
+
         const NAME = el.title.value;
         const PRICE = el.price.value;
         const SRC = el.link.value;

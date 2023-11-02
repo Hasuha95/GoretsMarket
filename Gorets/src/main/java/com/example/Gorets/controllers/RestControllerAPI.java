@@ -25,9 +25,14 @@ public class RestControllerAPI {
         return productService.getAllProducts();
     }
 
-    @GetMapping(value = "/{name}")
+    @GetMapping(value = "/name/{name}")
     public List<Product> getProductByName(@PathVariable String name){
         return productService.findProductByName(name);
+    }
+
+    @GetMapping(value = "/{id}")
+    public Product getProductById(@PathVariable long id){
+        return productService.findProductById(id);
     }
 
 

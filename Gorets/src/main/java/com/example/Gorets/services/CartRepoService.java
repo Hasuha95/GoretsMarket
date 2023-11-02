@@ -4,7 +4,6 @@ import com.example.Gorets.models.Cart;
 import com.example.Gorets.models.Product;
 import com.example.Gorets.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +21,11 @@ public class CartRepoService {
         return cart.getProducts();
     }
 
-    public boolean addNewProductInCardWithIdOne(Product newProduct){
+    public Cart addNewProductInCardWithIdOne(Product newProduct){
         long one = 1;
-        return cartRepo.findById(one).get().getProducts().add(newProduct);
+        Cart cart = cartRepo.findById(one).orElseThrow(() -> new NoSuchElementException("Cart not found by Id: " + one));
+        cart.getProducts().add(newProduct);
+        return cart;
     }
 
 

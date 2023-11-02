@@ -41,5 +41,9 @@ public class ProductService {
         return repository.findByName(name);
     }
 
+    public Product findProductById(long id){
+        return repository.findOneById(id);
+    }
+
 
 }
