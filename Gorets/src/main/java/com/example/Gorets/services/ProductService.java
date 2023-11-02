@@ -1,14 +1,18 @@
 package com.example.Gorets.services;
 
+import com.example.Gorets.controllers.CartRestController;
 import com.example.Gorets.models.Product;
 import com.example.Gorets.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class ProductService {
+    private Logger logger = Logger.getLogger(CartRestController.class.getName());
+
 
     @Autowired
     private ProductRepository repository;

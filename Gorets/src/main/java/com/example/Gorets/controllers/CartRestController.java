@@ -9,11 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value = "/api/v1/cart")
 public class CartRestController {
-
+    private Logger logger = Logger.getLogger(CartRestController.class.getName());
     @Autowired
     private CartRepoService cartRepoService;
 

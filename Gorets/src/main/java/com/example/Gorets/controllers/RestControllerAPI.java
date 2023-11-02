@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.management.Query;
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value = "/api/v1/test")
 public class RestControllerAPI {
+    private Logger logger = Logger.getLogger(CartRestController.class.getName());
 
     @Autowired
     private ProductService productService;

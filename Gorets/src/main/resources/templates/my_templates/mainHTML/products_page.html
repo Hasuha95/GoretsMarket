@@ -244,6 +244,8 @@ body {
 <!--root.js-->
 <script>
 const ROOT_PRODUCTS = document.getElementById('products');
+const ROOT_STORAGE = [];
+const ROOT_PROD = [];
 </script>
 
 <!--index.js-->
@@ -252,61 +254,69 @@ const ROOT_PRODUCTS = document.getElementById('products');
     .then(function (response) {
       response.json().then(function (data) {
         var PRODUCTS = data;
-        console.log('PRODUCTS', PRODUCTS)
-        createCards(PRODUCTS);
+          createStorage(PRODUCTS);
+          createCards(PRODUCTS);
       })
     })
+
 </script>
 
 <!--Storage.js-->
 <script>
-  class ProductsStore{
-    getCartProducts(){
-      var CART_PRODUCTS = [];
-      fetch('http://localhost:8080/market/api/v1/cart')
-      .then(function (response) {
-        response.json().then(function (data) {
-          CART_PRODUCTS = data;
-          console.log('CARD_PRODUCTS: ', CARD_PRODUCTS)
-        })
-      });
-      return CART_PRODUCTS;
-    }
-    }
+  function createStorage(products){
+    ROOT_STORAGE.push(products);
+    console.log("storage:");
+    console.log(ROOT_STORAGE);
+  }
 
-      function addToCart(id){
-      var product = '';
-            fetch('http://localhost:8080/market/api/v1/test/' + id)
-            .then(function (response) {
-              response.json().then(function (data) {
-                product = data;
-                console.log("product with id" + id +": " + product);
-                console.log(product);
-              })
+</script>
+
+<!--Cart-->
+<script>
+      function addToCart(Id){
+          fetch('http://localhost:8080/market/api/v1/test/' + Id)
+          .then(function (response) {
+            response.json().then(function (data) {
+              var PRODUCT = data;
+              addProduct(PRODUCT);
             })
-
-        var jsonProduct = JSON.stringify(product);
-        console.log(jsonProduct)
-        const url = 'http://localhost:8080/market/api/v1/cart';
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", url);
-        xhr.setRequestHeader("Content-type", "application/json");
-        xhr.send(jsonProduct);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log("OK");
-            }
-        };
-        return false;
-        location.reload();
+          })
       }
+
+      function addProduct(product){
+              var jsonProduct = JSON.stringify(product);
+              console.log(jsonProduct)
+              const url = 'http://localhost:8080/market/api/v1/cart';
+              let xhr = new XMLHttpRequest();
+              xhr.open("POST", url);
+              xhr.setRequestHeader("Content-type", "application/json");
+              xhr.send(jsonProduct);
+              xhr.onreadystatechange = function () {
+                  if (xhr.readyState === 4 && xhr.status === 200) {
+                      console.log("OK");
+                  }
+              };
+              return false;
+              location.reload();
+      }
+
+
+
+
+
 </script>
 
 <!--Product.js-->
 <script>
-  var store = new ProductsStore;
-  const prod = store.getCartProducts;
-  console.log("line322")
+<!--  var cartStorage = new CartStorage;-->
+<!--  const cartProd = cartStorage.getCartProducts();-->
+<!--  console.log("line322")-->
+<!--  console.log("products in cart: " + cartProd);-->
+
+<!--  var productStorage = new ProductStorage;-->
+<!--  const storage = productStorage.getProducts();-->
+<!--  console.log("products:");-->
+<!--  console.log(storage);-->
 
   function createCards(product){
         let htmlCatalog = '';
