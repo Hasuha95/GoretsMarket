@@ -24,10 +24,26 @@ public class CartRestController {
         return cartRepoService.getProductsFromCartWithIdOne(one);
     }
 
+    @GetMapping(value = "/{id}")
+    public boolean isProductWithIdIsInCartWithIdOne(@PathVariable long id){
+        long one = 1;
+        return cartRepoService.finedProductByIdFromCart(id);
+    }
+
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public Cart addNewProductInCardWithIdOne(@RequestBody Product addProduct){
-        return cartRepoService.addNewProductInCardWithIdOne(addProduct);
+    public Cart addNewProductInCartWithIdOne(@RequestBody Product addProduct){
+        return cartRepoService.addNewProductInCartWithIdOne(addProduct);
     }
+
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Cart deleteProductFromCartWithIdOne(@RequestBody Product deletedProduct){
+        return cartRepoService.deleteProductFromCartWithIdOne(deletedProduct);
+    }
+
 
 }

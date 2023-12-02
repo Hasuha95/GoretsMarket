@@ -163,6 +163,10 @@ body {
 	font-size: inherit;
 }
 .products-element__btn_active {
+	margin-top: var(--spacing-medium);
+	padding: var(--spacing-small) var(--spacing-medium);
+	border-radius: var(--border-radius);
+
 	border: 1px solid transparent;
 	background-image: var(--linear-gradient);
 }
@@ -244,12 +248,23 @@ body {
 <!--root.js-->
 <script>
 const ROOT_PRODUCTS = document.getElementById('products');
-const ROOT_STORAGE = [];
-const ROOT_PROD = [];
+let ROOT_STORAGE = [];
+let BOOLEAN = false;
+let ROOT_CART_STORAGE = [];
 </script>
 
 <!--index.js-->
 <script>
+    fetch('http://localhost:8080/market/api/v1/cart')
+    .then(function (response) {
+      response.json().then(function(data) {
+        var PRODUCTS = data;
+        createCartStorage(PRODUCTS);
+        action2();
+      })
+    })
+
+function action2(){
     fetch('http://localhost:8080/market/api/v1/test')
     .then(function (response) {
       response.json().then(function (data) {
@@ -258,34 +273,45 @@ const ROOT_PROD = [];
           createCards(PRODUCTS);
       })
     })
-
+}
 </script>
 
 <!--Storage.js-->
 <script>
   function createStorage(products){
-    ROOT_STORAGE.push(products);
-    console.log("storage:");
-    console.log(ROOT_STORAGE);
+    ROOT_STORAGE = products;
   }
 
+  function createCartStorage(products){
+    ROOT_CART_STORAGE = products;
+  }
 </script>
 
 <!--Cart-->
 <script>
-      function addToCart(Id){
-          fetch('http://localhost:8080/market/api/v1/test/' + Id)
+      function addToCartOrDelete(Id){
+        const ID = Id;
+        if(isProductWithIdInCart(ID)){
+          fetch('http://localhost:8080/market/api/v1/test/' + ID)
+          .then(function (response) {
+            response.json().then(function (data) {
+              var PRODUCT = data;
+              deleteProduct(PRODUCT);
+            })
+          })
+        } else {
+          fetch('http://localhost:8080/market/api/v1/test/' + ID)
           .then(function (response) {
             response.json().then(function (data) {
               var PRODUCT = data;
               addProduct(PRODUCT);
             })
           })
+        }
       }
 
       function addProduct(product){
               var jsonProduct = JSON.stringify(product);
-              console.log(jsonProduct)
               const url = 'http://localhost:8080/market/api/v1/cart';
               let xhr = new XMLHttpRequest();
               xhr.open("POST", url);
@@ -294,36 +320,57 @@ const ROOT_PROD = [];
               xhr.onreadystatechange = function () {
                   if (xhr.readyState === 4 && xhr.status === 200) {
                       console.log("OK");
+                      window.location.reload();
                   }
               };
-              return false;
-              location.reload();
+       return false;
       }
 
+      function deleteProduct(product){
+              var jsonProduct = JSON.stringify(product);
+              const url = 'http://localhost:8080/market/api/v1/cart';
+              let xhr = new XMLHttpRequest();
+              xhr.open("DELETE", url);
+              xhr.setRequestHeader("Content-type", "application/json");
+              xhr.send(jsonProduct);
+              xhr.onreadystatechange = function () {
+                  if (xhr.readyState === 4 && xhr.status === 200) {
+                      console.log("OK");
+                      window.location.reload();
+                  }
+              };
 
+              return false;
+      }
 
+      function isProductWithIdInCart(Id){
+              for (let i = 0; i < ROOT_CART_STORAGE.length; i++) {
+                if (ROOT_CART_STORAGE[i].id === Id){
+                  return true;
+                }
+              }
+        return false;
+      }
 
 
 </script>
 
 <!--Product.js-->
 <script>
-<!--  var cartStorage = new CartStorage;-->
-<!--  const cartProd = cartStorage.getCartProducts();-->
-<!--  console.log("line322")-->
-<!--  console.log("products in cart: " + cartProd);-->
-
-<!--  var productStorage = new ProductStorage;-->
-<!--  const storage = productStorage.getProducts();-->
-<!--  console.log("products:");-->
-<!--  console.log(storage);-->
-
   function createCards(product){
         let htmlCatalog = '';
-        let activeText = 'activeText';
-
+        let activeText = 'some text';
+        let activeClass = '';
         for (var i = 0; i < product.length; i++) {
           const ID = product[i].id;
+
+          if(isProductWithIdInCart(ID)){
+              activeText = "удалить из корзины";
+              activeClass = 'products-element__btn_active';
+          } else {
+              activeText = "добавить в корзину";
+              activeClass = 'products-element__btn';
+          }
           htmlCatalog += `
                 <li id="${product[i].id}" class="products-element" >
                     <span class="products-element__name">${product[i].name}</span>
@@ -331,7 +378,7 @@ const ROOT_PROD = [];
                     <span class="products-element__price">
                         ⚡️ ${product[i].price.toLocaleString()} USD
                     </span>
-                    <button class="products-element__btn" onclick="addToCart('${ID}')" >
+                    <button class="${activeClass}" onclick="addToCartOrDelete(${ID})" >
                     ${activeText}
                     </button>
                 </li>
@@ -347,6 +394,21 @@ const ROOT_PROD = [];
   }
 
 </script>
+
+<!--Tests-->
+<script>
+<!--console.log("-&#45;&#45; TEST PROCESS -&#45;&#45; ")-->
+<!--console.log("boolean= " + BOOLEAN);-->
+<!--    isProductWithIdInCart(28);-->
+<!--console.log("ROOT_CART_STORAGE:")-->
+<!--console.log(ROOT_CART_STORAGE);-->
+
+<!--function testPrint(){-->
+<!--  console.log("-&#45;&#45; TEST PROCESS -&#45;&#45; ")-->
+<!--  console.log(isProductWithIdInCart(33));-->
+<!--}-->
+</script>
+
 
 <!--Temporarily Not Working-->
 <script>

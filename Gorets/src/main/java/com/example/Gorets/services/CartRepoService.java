@@ -24,7 +24,7 @@ public class CartRepoService {
         return cart.getProducts();
     }
 
-    public Cart addNewProductInCardWithIdOne(Product newProduct){
+    public Cart addNewProductInCartWithIdOne(Product newProduct){
         long one = 1;
         Cart cart = cartRepo.findById(one).orElseThrow(() -> new NoSuchElementException("Cart not found by Id: " + one));
         cart.getProducts().add(newProduct);
@@ -32,8 +32,27 @@ public class CartRepoService {
         return cart;
     }
 
+    public boolean finedProductByIdFromCart(long id){
+        long one = 1;
+        Cart cart = cartRepo.findById(one).orElseThrow(() -> new NoSuchElementException("Cart not found by Id: " + one));
+        for (Product p : cart.getProducts()) {
+            if (p.getId() == id){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public Cart createNewCart(Cart cart){
         return cartRepo.save(cart);
+    }
+
+
+    public Cart deleteProductFromCartWithIdOne(Product product){
+        long one = 1;
+        Cart cart = cartRepo.findById(one).orElseThrow(() -> new NoSuchElementException("Cart not found by Id: " + one));
+        cart.getProducts().remove(product);
+        cartRepo.save(cart);
+        return cart;
     }
 }
