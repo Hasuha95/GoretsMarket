@@ -2,7 +2,6 @@ package com.example.Gorets.controllers;
 
 import com.example.Gorets.models.Product;
 import com.example.Gorets.services.ProductService;
-import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +17,7 @@ public class RestControllerAPI {
 
     @Autowired
     private ProductService productService;
+
 
     /**
      *    GetMapping
@@ -44,9 +44,6 @@ public class RestControllerAPI {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Product addNewProduct(@RequestBody Product newProduct){
-        if (newProduct.getName() == null || newProduct.getPrice() == 0 || newProduct.getSrc() == null){
-            throw new IllegalArgumentException();
-        }
         return productService.addNewProduct(newProduct);
     }
 
@@ -58,17 +55,11 @@ public class RestControllerAPI {
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     public String deleteProduct(@RequestBody Product product){
-        if (product == null){
-            throw new IllegalArgumentException();
-        }
         return productService.deleteProduct(product);
     }
 
     @DeleteMapping(value = "/{id}")
     public String deleteProductById(@PathVariable Long id){
-        if (id == null){
-            throw new IllegalArgumentException();
-        }
         productService.deleteProductById(id);
         return "OK";
     }

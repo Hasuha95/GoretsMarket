@@ -6,7 +6,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/testHibernateDB
+    url: jdbc:postgresql://DbFromDocker:5432/testHibernateDB
     username: postgres
     password: hoxa-95-hoxa
 
@@ -14,7 +14,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        default_schema: market
+#        default_schema: market
         dialect: org.hibernate.dialect.PostgresPlusDialect
         hbm2ddl:
           auto: update

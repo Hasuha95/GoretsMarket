@@ -19,7 +19,7 @@
   }
 </style>
 
-                                       <!--NAVBAR-->
+                                      <!--NAVBAR-->
 <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand " href="#">
@@ -59,10 +59,75 @@
 </nav>
 
 
+                                     <!--CONTENT-->
 
-                                       <!--Content-->
+<main>
+    <div class="parallax-content container text-center" style="color:white">
+        <div class="col-md-6 p-lg-5 mx-auto my-5">
+            <h1 class="display-3 fw-bold" >Administration</h1>
+        </div>
+        <div class="product-device shadow-sm d-none d-md-block"></div>
+        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    </div>
+
+</main>
 
         <!--scripts-->
+<!--проверка логина и пароля-->
+
+<!--index.js-->
+<script>
+    fetch('http://localhost:8080/market/api/v1/test')
+    .then(function (response) {
+      response.json().then(function (data) {
+        var PRODUCTS = data;
+        console.log('PRODUCTS', PRODUCTS)
+        createTable(PRODUCTS);
+      })
+    })
+</script>
+
+<!--createTable-->
+<script>
+    function createTable(product){
+        let htmlCatalog = '';
+
+        for (var i = 0; i < product.length; i++) {
+          htmlCatalog += `
+                  <tr>
+                    <td>${product[i].id}</td>
+                    <td>${product[i].name}</td>
+                    <td>${product[i].price}</td>
+                    <td>${product[i].src}</td>
+                    <td>
+                    <button class="btn btn-danger" onclick="confirmAction(${product[i].id})">Delete</button>
+                    <button type="button" class="btn btn-success">Edit</button>
+                    </td>
+                  </tr>
+            `;
+            }
+            const html = `
+            <div class="container">
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th>id</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Img Source</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+                ${htmlCatalog}
+              </tbody>
+            </table>
+            </div>
+        `;
+
+        document.getElementById("div").innerHTML =  html;
+    }
+</script>
 
 <!--Temporarily Not Working-->
 <script>
@@ -71,129 +136,130 @@
     }
 </script>
 
+<!--class Product-->
+<script>
+    class Product{
+        constructor(name, price, src){
+            this.name = name;
+            this.price = price;
+            this.src = src;
+        }
+    }
+</script>
+
+<!--Send Form To Server-->
+<script>
+    function sendFormToServer(){
+        const el = document.getElementById("mainForm");
+        const url = 'http://localhost:8080/market/api/v1/test';
+
+        const NAME = el.title.value;
+        const PRICE = el.price.value;
+        const SRC = el.link.value;
+
+        var newProduct = new Product(NAME, PRICE, SRC);
+        var data = JSON.stringify(newProduct);
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(data);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("OK");
+            }
+        };
+        return false;
+        location.reload();
+    }
+</script>
+
+<!--delete Product By Id-->
+<script>
+       function confirmAction(id){
+          var confirmBtn = confirm("Are you sure? Deleted product cannot be restored");
+            if(confirmBtn){
+                deleteProductById(id);
+            }
+       }
+
+    function deleteProductById(id){
+        const url = 'http://localhost:8080/market/api/v1/test/' + id;
+        console.log("INFO: line128 - " + url);
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("DELETE", url);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("OK");
+            }
+        };
+        location.reload();
+    }
+</script>
         <!--scripts-->
 
 
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h1 class="modal-title fs-5" id="exampleModalLabel">Authentication</h1>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <form>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="login-text" class="col-form-label">Login:</label>-->
+<!--                        <input type="text" class="form-control" id="login-text">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="password-text" class="col-form-label">Password:</label>-->
+<!--                        <textarea class="form-control" id="password-text"></textarea>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
+<!--                <button type="button" class="btn btn-primary">Confirm</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div class="row">
-<div class="position-relative p-5 text-center  rounded-5" >
-    <h1 class="text-body-emphasis">You are in the best</h1>
-    <h1 class="text-body-emphasis">market on the earth</h1>
-    <p style="color: #000">Choose the product you like<br> Here you will find the best products and you will not regret it</p>
+
+
+<div class="container" style="color: #f8f9fa">
+    <h3 >Add new product</h3>
+    <form id="mainForm" >
+        <div class="mb-3">
+            <label for="exampleInputPrice" class="form-label">Title</label>
+            <input placeholder="Title" name="title" class="form-control" id="exampleInputTitle">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPrice" class="form-label">Priсe</label>
+            <input placeholder="Price" name="price" class="form-control" id="exampleInputPrice">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputSrc" class="form-label">Link to photo</label>
+            <input placeholder="Link" name="link" class="form-control" id="exampleInputSrc">
+        </div>
+
+        <button type="submit" class="btn btn-primary" onclick="sendFormToServer()">Create</button>
+    </form>
 </div>
+
+<div class="container" style="color: #f8f9fa">
+    <p>         </p>
 </div>
 
-<figure class="text-end" style="color: #000">
-    <blockquote class="blockquote">
-        <p style="color: #000">"Lorem ipsum dolor amet consectetur adipiscing dolore magna aliqua <br> enim minim estudiat veniam siad venumus dolore"</p>
 
-    </blockquote>
-
-</figure>
-
-<main class="container">
-
-
-<div class="row g-5" style="color: #fff ">
-    <div class="col-md-8">
-        <h3 class="pb-4 mb-4 fst-italic ">
-            The content for this page is under development,
-        </h3>
-        <h3 class="pb-4 mb-4 fst-italic border-bottom">
-            so there will be text about site, problems and bags.
-        </h3>
-
-            <article class="blog-post">
-            <h2 class="display-5 link-body-emphasis mb-1">About site</h2>
-            <p class="blog-post-meta">September 17, 2023 development from 'GORETS'</p>
-
-            <p>The project includes minimal development skills and is designed for educational purposes.</p>
-            <hr>
-            <p>Since the developer is the backEnd, everything that is implemented on the front side is just sketches, so there was no way around it without them, so don’t judge too harshly.</p>
-            <h2>BACKEND</h2>
-            <p>We only have three working pages: Home, Products and Administration.</p>
-                <p>Home: This page contains this information and some test (template) text.</p>
-                <p>Products: By clicking on this link you can get a list of products, each of which is designed in the form of a card. The pictures on the cards, name and price are purely mock-up in nature. Adding an item to the cart is not completed or may have bugs in progress, since it was not possible to implement the necessary functionality on the front side. It is also possible that there may be malfunctions and incomplete improvements, since the project was implemented during the training process and some details were not given due attention.</p>
-                <p>Administration: On the administration page you can add or remove products. It is not possible to change products yet. The entrance to the administration page is temporarily open until security is implemented.</p>
-            <h3>Meaningless text</h3>
-            <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout. This is an example unordered list:</p>
-            <ul>
-                <li>First list item</li>
-                <li>Second list item with a longer description</li>
-                <li>Third list item to close it out</li>
-            </ul>
-            <p>And this is an ordered list:</p>
-            <ol>
-                <li>First list item</li>
-                <li>Second list item with a longer description</li>
-                <li>Third list item to close it out</li>
-            </ol>
-            <p>And this is a definition list:</p>
-            <dl>
-                <dt>HyperText Markup Language (HTML)</dt>
-                <dd>The language used to describe and define the content of a Web page</dd>
-                <dt>Cascading Style Sheets (CSS)</dt>
-                <dd>Used to describe the appearance of Web content</dd>
-                <dt>JavaScript (JS)</dt>
-                <dd>The programming language used to build advanced Web sites and applications</dd>
-            </dl>
-            <h2>Inline HTML elements</h2>
-            <p>HTML defines a long list of available inline tags, a complete list of which can be found on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">Mozilla Developer Network</a>.</p>
-            <ul>
-                <li><strong>To bold text</strong>, use <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>.</li>
-                <li><em>To italicize text</em>, use <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code>.</li>
-                <li>Abbreviations, like <abbr title="HyperText Markup Language">HTML</abbr> should use <code class="language-plaintext highlighter-rouge">&lt;abbr&gt;</code>, with an optional <code class="language-plaintext highlighter-rouge">title</code> attribute for the full phrase.</li>
-                <li>Citations, like <cite>— Mark Otto</cite>, should use <code class="language-plaintext highlighter-rouge">&lt;cite&gt;</code>.</li>
-                <li><del>Deleted</del> text should use <code class="language-plaintext highlighter-rouge">&lt;del&gt;</code> and <ins>inserted</ins> text should use <code class="language-plaintext highlighter-rouge">&lt;ins&gt;</code>.</li>
-                <li>Superscript <sup>text</sup> uses <code class="language-plaintext highlighter-rouge">&lt;sup&gt;</code> and subscript <sub>text</sub> uses <code class="language-plaintext highlighter-rouge">&lt;sub&gt;</code>.</li>
-            </ul>
-            <p>Most of these elements are styled by browsers with few modifications on our part.</p>
-            <h2>Heading</h2>
-            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-            <h3>Sub-heading</h3>
-            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-            <pre><code>Example code block</code></pre>
-            <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-        </article>
-
-        <article class="blog-post">
-            <h2 class="display-5 link-body-emphasis mb-1">Another blog post</h2>
-            <p class="blog-post-meta">December 23, 2020 by <a href="#">Jacob</a></p>
-
-            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-            <blockquote>
-                <p>Longer quote goes here, maybe with some <strong>emphasized text</strong> in the middle of it.</p>
-            </blockquote>
-            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-            <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-        </article>
-
-        <article class="blog-post">
-            <h2 class="display-5 link-body-emphasis mb-1">New feature</h2>
-            <p class="blog-post-meta">December 14, 2020 by <a href="#">Chris</a></p>
-
-            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-            <ul>
-                <li>First list item</li>
-                <li>Second list item with a longer description</li>
-                <li>Third list item to close it out</li>
-            </ul>
-            <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-        </article>
-
-        <nav class="blog-pagination" aria-label="Pagination">
-            <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
-            <a class="btn btn-outline-secondary rounded-pill disabled">Newer</a>
-        </nav>
-    </div>
+<div class="container" style="color: #f8f9fa">
+    <h3>Table of Products</h3>
 </div>
-</main>
 
-
-
-
-
-
+<div id="div" class="container"></div>
 
 
 

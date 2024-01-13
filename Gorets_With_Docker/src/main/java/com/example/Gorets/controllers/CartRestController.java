@@ -31,6 +31,7 @@ public class CartRestController {
     }
 
 
+
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public Cart addNewProductInCartWithIdOne(@RequestBody Product addProduct){
@@ -43,5 +44,6 @@ public class CartRestController {
     public Cart deleteProductFromCartWithIdOne(@RequestBody Product deletedProduct){
         return cartRepoService.deleteProductFromCartWithIdOne(deletedProduct);
     }
+
 
 }
