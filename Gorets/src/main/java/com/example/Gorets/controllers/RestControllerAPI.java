@@ -2,19 +2,18 @@ package com.example.Gorets.controllers;
 
 import com.example.Gorets.models.Product;
 import com.example.Gorets.services.ProductService;
-import org.springframework.beans.ConversionNotSupportedException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.Query;
 import java.util.List;
-import java.util.logging.Logger;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/v1/test")
 public class RestControllerAPI {
-    private Logger logger = Logger.getLogger(CartRestController.class.getName());
 
     @Autowired
     private ProductService productService;
@@ -56,13 +55,29 @@ public class RestControllerAPI {
      *    DeleteMapping
      */
     @DeleteMapping
-    @ResponseStatus(HttpStatus.OK)
-    public String deleteProduct(@RequestBody Product product){
+    public ResponseEntity<String> deleteProduct(@RequestBody Product product){
         if (product == null){
-            throw new IllegalArgumentException();
+            return new ResponseEntity<>("product does not exist", HttpStatus.BAD_REQUEST);
         }
-        return productService.deleteProduct(product);
+        return new ResponseEntity<>(productService.deleteProduct(product), HttpStatus.OK);
     }
+
+
+//    public ResponseEntity<String> deleteProduct(@RequestBody Product product){
+//        if (product == null){
+//            return new ResponseEntity<>("product does not exist", HttpStatus.BAD_REQUEST);
+//        }
+//        return new ResponseEntity<>(productService.deleteProduct(product), HttpStatus.OK);
+//    }
+
+
+//    @ResponseStatus(HttpStatus.OK)
+//    public String deleteProduct(@RequestBody Product product){
+//        if (product == null){
+//            throw new IllegalArgumentException();
+//        }
+//        return productService.deleteProduct(product);
+//    }
 
     @DeleteMapping(value = "/{id}")
     public String deleteProductById(@PathVariable Long id){
