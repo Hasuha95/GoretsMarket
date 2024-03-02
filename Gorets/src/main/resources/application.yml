@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
   servlet:
     context-path: /market
 
@@ -7,8 +7,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/testHibernateDB
-    username: postgres
-    password: hoxa-95-hoxa
+    username:
+    password:
 
   jpa:
     show-sql: true
@@ -17,7 +17,7 @@ spring:
         default_schema: market
         dialect: org.hibernate.dialect.PostgresPlusDialect
         hbm2ddl:
-          auto: update
+          auto: validate
         temp:
           use_jdbc_metadata_defaults: false
   thymeleaf:
